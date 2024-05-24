@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include torre_jp_xi *.css
+recursive-include torre_jp_xi *.csv
+recursive-include torre_jp_xi *.html
+recursive-include torre_jp_xi *.ico
+recursive-include torre_jp_xi *.js
+recursive-include torre_jp_xi *.json
+recursive-include torre_jp_xi *.md
+recursive-include torre_jp_xi *.png
+recursive-include torre_jp_xi *.py
+recursive-include torre_jp_xi *.svg
+recursive-include torre_jp_xi *.txt
+recursive-exclude torre_jp_xi *.pyc
