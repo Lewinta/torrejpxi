@@ -110,20 +110,18 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-#	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Payment Entry": "torre_jp_xi.controllers.payment_entry.PaymentEntry"
+}
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
 # doc_events = {
-#	"*": {
-#		"on_update": "method",
-#		"on_cancel": "method",
-#		"on_trash": "method"
-#	}
+# 	"Payment Entry": {
+#         "validate": "torre_jp_xi.controllers.payment_entry.validate",
+#     },
 # }
 
 # Scheduled Tasks
