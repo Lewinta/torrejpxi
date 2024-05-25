@@ -45,6 +45,27 @@ app_license = "MIT"
 #	"Role": "home_page"
 # }
 
+# Fixtures
+# ----------
+fixtures = [
+    {
+		"dt": "Custom Field",
+		"filters": [
+			[
+				"module", "in", ["Torre JP XI"]
+			]
+		]
+	},
+    {
+		"dt": "Property Setter",
+		"filters": [
+			[
+				"module", "in", ["Torre JP XI"]
+			]
+		]
+	},
+
+]
 # Generators
 # ----------
 
@@ -111,7 +132,8 @@ app_license = "MIT"
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Payment Entry": "torre_jp_xi.controllers.payment_entry.PaymentEntry"
+	"Payment Entry": "torre_jp_xi.controllers.payment_entry.PaymentEntry",
+	"Journal Entry": "torre_jp_xi.controllers.journal_entry.JournalEntry"
 }
 
 # Document Events
@@ -119,8 +141,8 @@ override_doctype_class = {
 # Hook on document methods and events
 
 # doc_events = {
-# 	"Payment Entry": {
-#         "validate": "torre_jp_xi.controllers.payment_entry.validate",
+# 	"Journal Entry": {
+#         "on_update": "torre_jp_xi.controllers.journal_entry.on_update",
 #     },
 # }
 
