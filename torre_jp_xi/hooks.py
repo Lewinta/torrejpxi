@@ -133,7 +133,9 @@ fixtures = [
 
 override_doctype_class = {
 	"Payment Entry": "torre_jp_xi.controllers.payment_entry.PaymentEntry",
-	"Journal Entry": "torre_jp_xi.controllers.journal_entry.JournalEntry"
+	"Journal Entry": "torre_jp_xi.controllers.journal_entry.JournalEntry",
+	"Sales Invoice": "torre_jp_xi.controllers.sales_invoice.SalesInvoice",
+    
 }
 
 # Document Events
