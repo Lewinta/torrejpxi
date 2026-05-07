@@ -1,0 +1,135 @@
+{% macro fmt(val) -%}
+    {{ frappe.format_value(val, {"fieldtype": "Currency"}) }}
+{%- endmacro %}
+
+<html lang="es">
+<head>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #details{
+            border: 2px solid #dddddd;
+            border-collapse:separate;
+            border-radius:10px;
+        }
+        .table th {
+            background-color: #d3d3d34f !important;
+            color: rgb(36, 36, 36) !important;
+            font-weight: 800;
+            font-size: 14px;
+
+        }
+        .difference {
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .difference-zero {
+            background-color: #28a745;
+            color: white;
+        }
+        .difference-nonzero {
+            background-color: #dc3545;
+            color: white;
+        }
+        .container{
+            margin-bottom:20px;
+        }
+        .green {
+            color:#28a745
+        }
+        .red {
+            color:#dc3545
+        }
+    </style>
+</head>
+<body>
+    {% set system_total = opening_balance | float + system_deposit | float - system_withdrawal | float - deposit_in_transit | float %}
+    {% set bank_total = opening_balance | float + bank_deposit | float - bank_withdrawal | float %}
+    {% set difference = system_total - bank_total %}
+    <div class="container mt-5">
+        <div class="card p-4 text-center">
+            <h2 class="text-center">Conciliación Bancaria</h2>
+            <!-- <h3 class="text-center text-muted"> <strong>{{ doc.company }}</strong></h3> -->
+            <p class="text-center text-muted"> 
+                
+                <strong>{{ frappe.format_value(doc.from_date, {"fieldtype": "Date"}) }}</strong> -
+                <strong>{{ frappe.format_value(doc.to_date, {"fieldtype": "Date"}) }}</strong>
+            </p>
+            <img width="120px" height="auto" src="/files/TORRE-JP-XI-LOGO.png" style=" margin: 0 auto; margin-top:10px !important;">
+            <br>
+            
+            <div class="row text-center mb-4">
+                <div class="col-md-12">
+
+                    <table id="details" class="table table-bordered">
+                        <tr>
+                            <th></th>
+                            <th class="text-right"> Balance en Libros</th>
+                            <th class="text-right"> Balance en Banco</th>
+                            <th class="text-right">Diferencia</th>
+                        </tr>
+                        <tr>
+                            <th class="br">Saldo Inicial</th>
+                            <td class="text-right"> {{ fmt(opening_balance) }}</td>
+                            <td class="text-right"> {{ fmt(opening_balance) }}</td>
+                            <td class="text-right">{{ fmt(0) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="br"><span class="green">(+)</span> Depósitos</th>
+                            <td class="text-right"> {{ fmt(system_deposit) }} </td>
+                            <td class="text-right"> {{ fmt(bank_deposit) }} </td>
+                            <td class="text-right"> {{ fmt(system_deposit - bank_deposit) }} </td>
+                        </tr>
+                        <tr>
+                            <th class="br"><span class="red">(-)</span> Retiros</th>
+                            <td class="text-right"> {{ fmt(system_withdrawal) }} </td>
+                            <td class="text-right"> {{ fmt(bank_withdrawal) }} </td>
+                            <td class="text-right"> {{ fmt(system_withdrawal - bank_withdrawal) }} </td>
+                        </tr>
+                        <tr>
+                            <th class="br"><span class="red">(-)</span> Depósitos en Transito</th>
+                            <td class="text-right"> {{ fmt(deposit_in_transit) }} </td>
+                            <td class="text-right"> {{ fmt(0) }} </td>
+                            <td class="text-right"> {{ fmt(-deposit_in_transit) }} </td>
+                        </tr>
+                        <tr>
+                            <th class="br"><span class="red">(-)</span> Cheques Emitidos</th>
+                            <td class="text-right"> {{ fmt(pending_checks) }} </td>
+                            <td class="text-right"> {{ fmt(0) }} </td>
+                            <td class="text-right"> {{ fmt(-pending_checks) }} </td>
+                        </tr>
+                        <tr>
+                            <th class="br"> Total</th>
+                            <td class="text-right"> <h4>{{ fmt(system_total) }} </h4></td>
+                            <td class="text-right"> <h4>{{ fmt(bank_total) }} </h4></td>
+                            <td class="text-right"> 
+                                <h4 class="{% if difference == 0.00 %}green{% else %}red{% endif %}">
+                                    {{ fmt(system_total - bank_total) }}
+                                </h4> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <h3 class="fs-4">Diferencia</h3>
+                <h2 class="fs-3 difference {% if difference == 0.00 %}difference-zero{% else %}difference-nonzero{% endif %}">
+                    {{ fmt(difference) }}
+                </h2>
+            </div>
+        </div>
+    </div>
+</body>
+<br>
+<br>
+<br>
+</html>

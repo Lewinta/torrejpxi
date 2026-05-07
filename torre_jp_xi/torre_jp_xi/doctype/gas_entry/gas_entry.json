@@ -37,6 +37,7 @@
    "fieldname": "conversion_factor",
    "fieldtype": "Float",
    "label": "Conversion Factor",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -65,9 +66,11 @@
    "label": "Readings"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "readings",
    "fieldtype": "Table",
-   "options": "Gas Entry Item"
+   "options": "Gas Entry Item",
+   "reqd": 1
   },
   {
    "fieldname": "totals_sb",
@@ -120,7 +123,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-05-25 00:43:30.974542",
+ "modified": "2025-03-24 09:14:08.928925",
  "modified_by": "Administrator",
  "module": "Torre JP XI",
  "name": "Gas Entry",
@@ -136,6 +139,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

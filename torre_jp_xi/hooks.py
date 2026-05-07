@@ -29,7 +29,11 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Payroll Entry" : "public/js/payroll_entry.js",
+    "Payment Entry" : "public/js/payment_entry.js",
+    "Journal Entry" : "public/js/journal_entry.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -132,7 +136,6 @@ fixtures = [
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Payment Entry": "torre_jp_xi.controllers.payment_entry.PaymentEntry",
 	"Journal Entry": "torre_jp_xi.controllers.journal_entry.JournalEntry",
 	"Sales Invoice": "torre_jp_xi.controllers.sales_invoice.SalesInvoice",
     
@@ -142,11 +145,22 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"Journal Entry": {
-#         "on_update": "torre_jp_xi.controllers.journal_entry.on_update",
-#     },
-# }
+doc_events = {
+	"Payment Entry": {
+        "validate": "torre_jp_xi.controllers.payment_entry.validate",
+        "on_submit": "torre_jp_xi.controllers.payment_entry.on_submit",
+        "on_cancel": "torre_jp_xi.utils.validate_comment_on_cancel",
+    },
+	"Sales Invoice": {
+        "on_cancel": "torre_jp_xi.utils.validate_comment_on_cancel",
+    },
+	"Purchase Invoice": {
+        "on_cancel": "torre_jp_xi.utils.validate_comment_on_cancel",
+    },
+	"Journal Entry": {
+        "on_cancel": "torre_jp_xi.utils.validate_comment_on_cancel",
+    },
+}
 
 # Scheduled Tasks
 # ---------------

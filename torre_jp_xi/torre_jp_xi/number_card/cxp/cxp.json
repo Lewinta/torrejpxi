@@ -1,0 +1,23 @@
+{
+ "creation": "2024-08-14 21:59:45.648732",
+ "docstatus": 0,
+ "doctype": "Number Card",
+ "dynamic_filters_json": "{\"account_type\":\"\\\"Payable\\\"\",\"report_date\":\"frappe.datetime.nowdate()\"}",
+ "filters_json": "{\"company\":\"Torre JP XI\",\"report_date\":\"2024-08-21\"}",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "CXP",
+ "modified": "2024-08-21 00:12:59.400203",
+ "modified_by": "lewin.villar@gmail.com",
+ "module": "Torre JP XI",
+ "name": "CXP",
+ "owner": "lewin.villar@gmail.com",
+ "report_field": "balance",
+ "report_function": "Sum",
+ "report_name": "Account Balance",
+ "show_percentage_stats": 1,
+ "stats_time_interval": "Daily",
+ "type": "Report"
+}

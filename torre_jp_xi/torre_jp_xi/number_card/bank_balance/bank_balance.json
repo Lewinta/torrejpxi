@@ -1,0 +1,23 @@
+{
+ "creation": "2024-08-14 21:46:00.109517",
+ "docstatus": 0,
+ "doctype": "Number Card",
+ "dynamic_filters_json": "{\"account_type\":\"\\\"Bank\\\"\",\"report_date\":\"frappe.datetime.nowdate()\"}",
+ "filters_json": "{\"company\":\"Torre JP XI\",\"report_date\":\"2024-08-21\"}",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Bank Balance",
+ "modified": "2024-08-21 00:14:18.941327",
+ "modified_by": "lewin.villar@gmail.com",
+ "module": "Torre JP XI",
+ "name": "Bank Balance",
+ "owner": "lewin.villar@gmail.com",
+ "report_field": "balance",
+ "report_function": "Sum",
+ "report_name": "Account Balance",
+ "show_percentage_stats": 1,
+ "stats_time_interval": "Daily",
+ "type": "Report"
+}

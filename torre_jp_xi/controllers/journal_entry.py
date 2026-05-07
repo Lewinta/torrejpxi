@@ -10,7 +10,7 @@ class JournalEntry(CustomJournalEntry):
         # This function will set the bank account for the journal entry accounts
         # that are missing it. It will use the account and company to find the bank account
         # and set it to the journal entry account
-        
+
         BA = frappe.qb.DocType("Bank Account")
         JA = frappe.qb.DocType("Journal Entry Account")
 

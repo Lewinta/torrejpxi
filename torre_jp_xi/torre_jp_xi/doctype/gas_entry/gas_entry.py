@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.utils import flt, add_days
+from frappe.utils import flt, today
 from frappe.model.document import Document
 from frappe.query_builder import Criterion, Query, Order, functions as fn
 
@@ -62,7 +62,7 @@ class GasEntry(Document):
 			(GI.customer == CS.name)&
 			(GI.docstatus == 1)&
 			(GI.parent != self.name)
-		).orderby(GE.date, Order.desc).limit(1)
+		).orderby(GE.date, order=Order.desc).limit(1)
 		
 
 		# Let's get the last reading for each customer
@@ -84,15 +84,36 @@ class GasEntry(Document):
 
 	def create_invoices(self):
 		# Let's get the default company
+		t = today()
+		month_map = {
+			"01": "Enero",
+			"02": "Febrero",
+			"03": "Marzo",
+			"04": "Abril",
+			"05": "Mayo",
+			"06": "Junio",
+			"07": "Julio",
+			"08": "Agosto",
+			"09": "Septiembre",
+			"10": "Octubre",
+			"11": "Noviembre",
+			"12": "Diciembre"
+		}
 		for row in self.readings:
+			if not row.used_amount:
+				continue
+			# Let's add the remarks Gas <Month> <yy>
+			remarks = f"Gas {month_map[t.split('-')[1]]} {t.split('-')[0][2:]}"
 			doc = frappe.get_doc({
 				"doctype": "Sales Invoice",
 				"company": self.company,
 				"customer": row.customer,
 				"posting_date": str(self.date).split(" ")[0],
 				"posting_time": str(self.date).split(" ")[1],
+				"gas_entry": self.name,
+				"disable_rounded_total": 1,
 				"set_posting_time": 1,
-				# "due_date": self.date,
+				"remarks": remarks
 			})
 			
 			doc.append("items", {
@@ -105,9 +126,11 @@ class GasEntry(Document):
 			doc.set_missing_values()
 			doc.save()
 			doc.submit()
-			row.invoice = doc.name
+			# row.invoice = doc.name
+			# Let's set the value to the db 
+			frappe.db.set_value("Gas Entry Item", row.name, "invoice", doc.name)
 		
-		self.save()
+		# self.save()
 		
 		frappe.msgprint("Invoices created successfully")
 	
